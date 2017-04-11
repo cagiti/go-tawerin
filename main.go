@@ -12,7 +12,7 @@ import (
 
 func handler(w http.ResponseWriter, r *http.Request) {
     t, _ := template.ParseFiles("templates/index.tmpl")
-    t.Execute(w, map[string] string {"title": "simple-go-webapp"})
+    t.Execute(w, map[string] string {"title": "Tawerin"})
 }
 
 func main() {
