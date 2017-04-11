@@ -1,7 +1,7 @@
 all: release
 
 clean:
-	rm -f go-tawerin
+	rm -rf go-tawerin Godeps vendor
 
 install: clean prepare build
 	godep go install
@@ -16,7 +16,8 @@ build: clean prepare
 	godep go build
 
 test: clean prepare build install
-	echo "no tests"
+	echo "no unit tests"
+	go vet go-tawerin
 
 release: clean prepare build install test
 
