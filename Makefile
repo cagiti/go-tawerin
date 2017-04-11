@@ -17,7 +17,7 @@ build: clean prepare
 
 test: clean prepare build install
 	echo "no unit tests"
-	go vet go-tawerin
+	go vet .
 
 release: clean prepare build install test
 
