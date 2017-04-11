@@ -15,4 +15,8 @@ deploy:
    space: dev
 
 notifications:
-  slack: tawerin:$SLACK_TOKEN
+  slack:
+    rooms:
+      - tawerin:6a1af05ead7bf3f03d582497975cfb7b446fafab
+    template:
+    - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} in PR <%{pull_request_url}|#%{pull_request_number}> by %{author} %{result} in %{duration}"
