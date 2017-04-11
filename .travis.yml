@@ -1,8 +1,9 @@
 language: go
 go:
- - 1.7.4
  - 1.8
 install: make
+
+after_success: sed -i "s/NEWRELICLICENSEKEY/$NEWRELIC_LICENSE_KEY/g" ./manifest.yml
 
 deploy:
    edge: true
@@ -12,3 +13,6 @@ deploy:
    api: https://$BM_API
    organization: $BM_ORG
    space: dev
+
+notifications:
+  slack: tawerin:$SLACK_TOKEN

@@ -8,5 +8,5 @@ applications:
   command: go-tawerin
   buildpack: https://github.com/cloudfoundry/go-buildpack.git
   env:
-    NEWRELIC_LICENSE_KEY: $NEWRELIC_LICENSE_KEY
+    NEWRELIC_LICENSE_KEY: NEWRELICLICENSEKEY
     NEWRELIC_APP_NAME: go-tawerin
