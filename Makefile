@@ -1,20 +1,23 @@
-all: test
+all: release
 
 clean:
 	rm -f go-tawerin
 
-install: prepare
+install: clean prepare build
 	godep go install
 
-prepare:
+prepare: clean
 	go get github.com/tools/godep
 	go get github.com/gorilla/mux
 	go get github.com/newrelic/go-agent
 
-build: prepare
+build: clean prepare
+	godep save
 	godep go build
 
-test: prepare build
+test: clean prepare build install
 	echo "no tests"
 
-.PHONY: clean install prepare build test
+release: clean prepare build install test
+
+.PHONY: clean install prepare build test release
