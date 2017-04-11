@@ -1,0 +1,12 @@
+applications:
+- path: .
+  memory: 64M
+  instances: 1
+  name: go-tawerin
+  host: go-tawerin
+  disk_quota: 256M
+  command: go-tawerin
+  buildpack: https://github.com/cloudfoundry/go-buildpack.git
+  env:
+    NEWRELIC_LICENSE_KEY: $NEWRELIC_LICENSE_KEY
+    NEWRELIC_APP_NAME: go-tawerin
