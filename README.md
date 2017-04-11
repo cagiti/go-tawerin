@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cagiti/go-tawerin.svg?branch=master)](https://travis-ci.org/cagiti/go-tawerin)
+
 # go-tawerin
 Tawerin website using templating, gorilla/mux router and newrelic monitoring
 
