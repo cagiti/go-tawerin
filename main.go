@@ -1,18 +1,34 @@
 package main
 
 import (
+    "github.com/magiconair/properties"
     "github.com/gorilla/mux"
     "github.com/newrelic/go-agent"
     "html/template"
     "net/http"
+    "strings"
     "fmt"
     "log"
     "os"
 )
 
+func getProperties(host string) map[string]string {
+
+    var p map[string]string
+
+    if strings.Contains(host, "wales") {
+        p = properties.MustLoadFile("static/wales.properties", properties.UTF8).Map()
+    } else {
+        p = properties.MustLoadFile("static/cymru.properties", properties.UTF8).Map()
+    }
+
+    return p
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
     t, _ := template.ParseFiles("templates/index.tmpl")
-    t.Execute(w, map[string] string {"title": "Tawerin"})
+    m := getProperties(r.Host)
+    t.Execute(w, m)
 }
 
 func main() {
@@ -36,5 +52,4 @@ func main() {
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/", handler))
     r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
     http.ListenAndServe(fmt.Sprintf(":%s",port), r)
-
 }

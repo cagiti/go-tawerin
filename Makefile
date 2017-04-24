@@ -10,6 +10,7 @@ prepare: clean
 	go get github.com/tools/godep
 	go get github.com/gorilla/mux
 	go get github.com/newrelic/go-agent
+	go get github.com/magiconair/properties
 
 build: clean prepare
 	godep save
