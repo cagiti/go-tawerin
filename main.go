@@ -26,9 +26,14 @@ func getProperties(host string) map[string]string {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    t, _ := template.ParseFiles("templates/index.tmpl")
     m := getProperties(r.Host)
-    t.Execute(w, m)
+    if r.URL.Path == "/" {
+        t, _ := template.ParseFiles("templates/index.tmpl")
+        t.Execute(w, m)
+    } else {
+        t, _ := template.ParseFiles(fmt.Sprintf("templates/%s.tmpl", r.URL.Path))
+        t.Execute(w, m)
+    }
 }
 
 func main() {
@@ -50,6 +55,8 @@ func main() {
 
     r := mux.NewRouter()
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/", handler))
+    r.HandleFunc(newrelic.WrapHandleFunc(app,"/ytim", handler))
+    r.HandleFunc(newrelic.WrapHandleFunc(app,"/band", handler))
     r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
     http.ListenAndServe(fmt.Sprintf(":%s",port), r)
 }

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>{{ .tawerin }}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"></link>
+    <!-- Custom CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/clean-blog.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Belleza" rel="stylesheet"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+		<!--<div style="text-align: center;">-->
+		<div style="margin-left: 10px;">
+			<a href="?lang=cy"><img style="cursor: pointer;" src="/static/img/icon/cy_GB.png"/></a>
+			<a href="?lang=en"><img style="cursor: pointer;" src="/static/img/icon/en_GB.png"/></a>
+		</div>
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">{{ .tawerin }}</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">{{ .index_home }}</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown">{{ .menu_info }}</a>
+	                <ul class="dropdown-menu" role="menu" aria-labelledby="gwybodaeth">
+		            <li role="presentation">
+		                <a role="menuitem" tabindex="-1" href="ytim">{{ .menu_info_team }}</a>
+			        <a role="menuitem" tabindex="-1" href="band">{{ .menu_info_band }}</a>
+		                <a role="menuitem" tabindex="-1" href="dawnsfeydd">{{ .menu_info_dances }}</a>
+			        <a role="menuitem" tabindex="-1" href="rolau">{{ .menu_info_roles }}</a>
+		            </li>
+			</ul>
+                    </li>
+                    <li>
+                        <a href="oriel">{{ .menu_gallery }}</a>
+                    </li>
+                    <li>
+                        <a href="perfformiadau">{{ .menu_performances }}</a>
+                    </li>
+                    <li>
+                        <a href="cysylltu">{{ .menu_contact }}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/static/img/cartref.png')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>{{ .menu_info_band }}</h1>
+                        <hr class="small"></hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+ 
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <p>{{ .info_band_p1 }}</p>
+              <div style="text-align: center;">
+                <img src="/static/img/band1.jpg"></img>
+              </div>
+              <p>{{ .info_band_p2 }}</p>
+              <p>{{ .info_band_p3 }}</p>
+                <div style="text-align: center;">
+                  <img src="/static/img/band2.png"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr></hr>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-2">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://twitter.com/dawnswyrtawerin">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <p class="post-meta" style="font-style:italic;">{{ .footer_twitter }}</p>
+                    </ul>
+                    <p class="copyright text-muted">{{ .footer_copyright }}</p>
+			<div class="copyright">
+				<a class="dmca-badge" href="http://www.dmca.com/Protection/Status.aspx?ID=eb8cbaa3-4621-484d-8921-d9e8288c3106" title="DMCA.com Protection Status">
+					<img src="//images.dmca.com/Badges/dmca_protected_sml_120l.png?ID=eb8cbaa3-4621-484d-8921-d9e8288c3106" alt="DMCA.com Protection Status"></img>
+				</a>
+			</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src="../static/js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../static/js/clean-blog.min.js"></script>
+</body>
+</html>
