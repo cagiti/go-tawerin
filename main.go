@@ -63,6 +63,7 @@ func main() {
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/perfformiadau", handler))
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/cysylltu", handler))
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/error", handler))
+    r.HandleFunc(newrelic.WrapHandleFunc(app,"/result", handler))
     r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
     http.ListenAndServe(fmt.Sprintf(":%s",port), r)
 }
