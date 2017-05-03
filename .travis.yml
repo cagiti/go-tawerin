@@ -14,6 +14,15 @@ deploy:
    organization: $BM_ORG
    space: dev
 
+deploy:
+   edge: true
+   provider: cloudfoundry
+   username: $BM_USERNAME
+   password: $BM_PASSWORD
+   api: https://$BM_API
+   organization: $BM_ORG
+   space: prod
+
 notifications:
   slack:
     rooms:
