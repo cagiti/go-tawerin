@@ -2,7 +2,7 @@ applications:
 - path: .
   memory: 64M
   instances: 1
-  name: SPACE-go-tawerin-TRAVIS_TAG.TRAVIS_BUILD_NUMBER
+  name: SPACE-go-tawerin-1.0.TRAVIS_BUILD_NUMBER
   host: SPACE-go-tawerin
   disk_quota: 256M
   command: go-tawerin
