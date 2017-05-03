@@ -3,7 +3,7 @@ go:
  - 1.8
 install: make
 
-after_success: sed -i "s/NEWRELICLICENSEKEY/$NEWRELIC_LICENSE_KEY/g" ./manifest.yml;sed -i "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml
+after_success: sed -i "s/NEWRELICLICENSEKEY/$NEWRELIC_LICENSE_KEY/g" ./manifest.yml;sed -i "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml;sed -i "s/TRAVIS_TAG/$TRAVIS_TAG/g" ./manifest.yml
 
 env:
 - SPACE=dev
