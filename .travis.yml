@@ -3,10 +3,12 @@ go:
  - 1.8
 install: make
 
-env:
-- DEV_SPACE=dev
+after_success: sed -i "s/NEWRELICLICENSEKEY/$NEWRELIC_LICENSE_KEY/g" ./manifest.yml;sed -i "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml
 
-before_deploy: sed -i "s/SPACE/$DEV_SPACE/g" ./manifest.yml
+env:
+- SPACE=dev
+
+before_deploy: sed -i "s/SPACE/$SPACE/g" ./manifest.yml
 
 deploy:
    edge: true
@@ -15,7 +17,7 @@ deploy:
    password: $BM_PASSWORD
    api: https://$BM_API
    organization: $BM_ORG
-   space: $DEV_SPACE
+   space: $SPACE
 
 notifications:
   slack:

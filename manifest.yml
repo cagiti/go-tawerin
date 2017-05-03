@@ -2,11 +2,11 @@ applications:
 - path: .
   memory: 64M
   instances: 1
-  name: SPACE-go-tawerin-$TRAVIS_BUILD_NUMBER
+  name: SPACE-go-tawerin-TRAVIS_BUILD_NUMBER
   host: SPACE-go-tawerin
   disk_quota: 256M
   command: go-tawerin
   buildpack: https://github.com/cloudfoundry/go-buildpack.git
   env:
-    NEWRELIC_LICENSE_KEY: $NEWRELICLICENSEKEY
+    NEWRELIC_LICENSE_KEY: NEWRELICLICENSEKEY
     NEWRELIC_APP_NAME: SPACE-go-tawerin
