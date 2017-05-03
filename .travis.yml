@@ -3,11 +3,8 @@ go:
  - 1.8
 install: make
 
-after_success: sed -i "s/NEWRELICLICENSEKEY/$NEWRELIC_LICENSE_KEY/g" ./manifest.yml;sed -i "s/BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml
-
 env:
 - DEV_SPACE=dev
-- PROD_SPACE=prod
 
 before_deploy: sed -i "s/SPACE/$DEV_SPACE/g" ./manifest.yml
 
@@ -18,20 +15,7 @@ deploy:
    password: $BM_PASSWORD
    api: https://$BM_API
    organization: $BM_ORG
-   space: $SPACE
-
-before_deploy: sed -i "s/SPACE/$PROD_SPACE/g" ./manifest.yml;sed -i "s/NEWRELICLICENSEKEY/$NEWRELIC_LICENSE_KEY/g" ./manifest.yml
-
-deploy:
-   edge: true
-   provider: cloudfoundry
-   username: $BM_USERNAME
-   password: $BM_PASSWORD
-   api: https://$BM_API
-   organization: $BM_ORG
-   space: $PROD_SPACE
-   on:
-    tags: true
+   space: $DEV_SPACE
 
 notifications:
   slack:
