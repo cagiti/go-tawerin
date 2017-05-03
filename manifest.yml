@@ -2,8 +2,8 @@ applications:
 - path: .
   memory: 64M
   instances: 1
-  name: go-tawerin
-  host: go-tawerin
+  name: SPACE-go-tawerin
+  host: SPACE-go-tawerin
   disk_quota: 256M
   command: go-tawerin
   buildpack: https://github.com/cloudfoundry/go-buildpack.git
