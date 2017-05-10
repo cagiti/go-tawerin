@@ -1,28 +1,24 @@
 language: go
 go:
  - 1.8
-install: make
 
-after_success: sed -i "s/NEWRELICLICENSEKEY/$NEWRELIC_LICENSE_KEY/g" ./manifest.yml;sed -i "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml
+before_install:
+- wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+- echo "deb http://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+- sudo apt-get update
+- sudo apt-get install cf-cli
+- cf --version
 
 env:
 - SPACE=dev
 - SPACE=prod
 
-before_deploy: sed -i "s/SPACE/$SPACE/g" ./manifest.yml
+install: make
 
-deploy:
-   edge: true
-   provider: cloudfoundry
-   username: $BM_USERNAME
-   password: $BM_PASSWORD
-   api: https://$BM_API
-   organization: $BM_ORG
-   space: $SPACE
+after_success:
+  - ./deploy.sh $BM_API $BM_ORG $BM_SPACE $BM_USERNAME $BM_PASSWORD
 
 notifications:
   slack:
     rooms:
       - tawerin:6a1af05ead7bf3f03d582497975cfb7b446fafab
-    template:
-    - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} in PR <%{pull_request_url}|#%{pull_request_number}> by %{author} %{result} in %{duration}"
