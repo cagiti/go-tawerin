@@ -30,6 +30,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
     if r.URL.Path == "/" {
         t, _ := template.ParseFiles("templates/index.tmpl")
         t.Execute(w, m)
+    } else if r.URL.Path == "/ping" {
+        fmt.Fprintf(w, "OK")
     } else {
         t, _ := template.ParseFiles(fmt.Sprintf("templates/%s.tmpl", r.URL.Path))
         t.Execute(w, m)
@@ -64,6 +66,7 @@ func main() {
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/cysylltu", handler))
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/error", handler))
     r.HandleFunc(newrelic.WrapHandleFunc(app,"/result", handler))
+    r.HandleFunc(newrelic.WrapHandleFunc(app,"/ping", handler))
     r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
     http.ListenAndServe(fmt.Sprintf(":%s",port), r)
 }
