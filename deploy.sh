@@ -9,7 +9,7 @@ sed -i "s/MINOR/$MINOR/g" ./manifest.yml
 sed -i "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml
 
 # cf deployment
-cf login -a "${1}" -o "${2}" -s "${3}" -u "${4}" -p "${5}"
+cf login -a $BM_API -o $BM_ORG -s $SPACE -u $BM_USERNAME -p $BM_PASSWORD
 cf push
 
 # map new route if app is running

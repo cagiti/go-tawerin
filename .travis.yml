@@ -15,7 +15,7 @@ env:
 install: make
 
 after_success:
-  - ./deploy.sh $BM_API $BM_ORG $BM_SPACE $BM_USERNAME $BM_PASSWORD
+  - ./deploy.sh
 
 notifications:
   slack:
