@@ -27,7 +27,8 @@ then
     if [ `echo $?` -eq 0 ]
     then
         # create domains and map route
-        echo "create domains: ${TAWERIN_DOMAINS[@]}, and map route for production"
+        echo "create domains: ${S_TAWERIN_DOMAINS}, and map route for production"
+        IFS=',' read -r -a TAWERIN_DOMAINS <<< "$S_TAWERIN_DOMAINS"
         for tawerin_domain in "${TAWERIN_DOMAINS[@]}"
         do
             echo "creating and mapping ${tawerin_domain} to ${SPACE}-${APPLICATION}-${MAJOR}.${MINOR}.${TRAVIS_BUILD_NUMBER}"
