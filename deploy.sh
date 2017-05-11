@@ -26,6 +26,7 @@ then
     if [ $SPACE == *"prod"* ]
     then
         # create domains and map route
+        echo "create domains: ${TAWERIN_DOMAINS[@]}, and map route for production"
         for tawerin_domain in "${TAWERIN_DOMAINS[@]}"
         do
             echo "creating and mapping ${tawerin_domain} to ${SPACE}-${APPLICATION}-${MAJOR}.${MINOR}.${TRAVIS_BUILD_NUMBER}"
