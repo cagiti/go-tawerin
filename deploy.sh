@@ -23,6 +23,7 @@ cf push
 if [ $(curl http://$SPACE-$APPLICATION-blue.$DOMAIN/ping -s) == "OK" ]
 then
     cf map-route $SPACE-$APPLICATION-$MAJOR.$MINOR.$TRAVIS_BUILD_NUMBER $DOMAIN --hostname $SPACE-$APPLICATION
+    [ "${SPACE}" == "prod" ]; echo $?
     if [ $SPACE == *"prod"* ]
     then
         # create domains and map route
