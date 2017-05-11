@@ -8,6 +8,12 @@ sed -i "s/MAJOR/$MAJOR/g" ./manifest.yml
 sed -i "s/MINOR/$MINOR/g" ./manifest.yml
 sed -i "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml
 
+if [ $(cf s | grep -c newrelic) -eq 0 ]
+then
+    echo "newrelic service is not present, creating..."
+    cf cups newrelic -p '{"label": "newrelic", "licenseKey": "${NEWRELIC_LICENSE_KEY}", "name": "newrelic", "plan": "standard"}'
+fi
+
 # cf deployment
 cf login -a $BM_API -o $BM_ORG -s $SPACE -u $BM_USERNAME -p $BM_PASSWORD
 cf push
