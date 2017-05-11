@@ -8,6 +8,8 @@ sed -i "s/MAJOR/$MAJOR/g" ./manifest.yml
 sed -i "s/MINOR/$MINOR/g" ./manifest.yml
 sed -i "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/g" ./manifest.yml
 
+cf login -a $BM_API -o $BM_ORG -s $SPACE -u $BM_USERNAME -p $BM_PASSWORD
+
 if [ $(cf s | grep -c newrelic) -eq 0 ]
 then
     echo "newrelic service is not present, creating..."
@@ -15,14 +17,13 @@ then
 fi
 
 # cf deployment
-cf login -a $BM_API -o $BM_ORG -s $SPACE -u $BM_USERNAME -p $BM_PASSWORD
 cf push
 
 # map new route if app is running
 if [ $(curl http://$SPACE-$APPLICATION-blue.$DOMAIN/ping -s) == "OK" ]
 then
     cf map-route $SPACE-$APPLICATION-$MAJOR.$MINOR.$TRAVIS_BUILD_NUMBER $DOMAIN --hostname $SPACE-$APPLICATION
-    if [ "${SPACE}" == "prod" ]
+    if [ $SPACE == *"prod"* ]
     then
         # create domains and map route
         for tawerin_domain in "${TAWERIN_DOMAINS[@]}"
