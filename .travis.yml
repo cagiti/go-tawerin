@@ -11,6 +11,7 @@ before_install:
 
 env:
 - SPACE=dev
+- SPACE=prod
 
 install: make
 
