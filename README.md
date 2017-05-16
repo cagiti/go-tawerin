@@ -15,7 +15,6 @@ docker run -d --name go-tawerin -p 80:8080 -e NEWRELIC_LICENSE_KEY="<YOUR_LICENS
 
 ## Run go app
 ```
-godep save
-go install
+make
 go-tawerin
 ```
