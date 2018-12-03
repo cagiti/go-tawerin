@@ -1,23 +1,24 @@
+.PHONY: clean install prepare build test release
+
 all: release
 
 clean:
-	rm -rf go-tawerin Godeps vendor
+	rm -rf go-tawerin
 
 install: clean prepare build
-	godep go install
+	glide install
 
 prepare: clean
-	go get github.com/tools/godep
-	go get github.com/gorilla/mux
-	go get github.com/magiconair/properties
+	go get github.com/Masterminds/glide
 
 build: clean prepare
-	godep save
-	godep go build
+	glide update
+	go build
+	go fmt
+	go vet .
 
 test: clean prepare build install
-	echo "no unit tests"
-	go vet .
+	go test ./... -cover
 
 release: clean prepare build install test
 

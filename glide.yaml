@@ -1,0 +1,6 @@
+package: go-tawerin
+import:
+- package: github.com/gorilla/mux
+  version: 07ba1fd60e210dc5cc6f86ec25dc9ecc7c95c295
+- package: github.com/magiconair/properties
+  version: 2c9e9502788518c97fe44e8955cd069417ee89df
