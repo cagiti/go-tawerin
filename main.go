@@ -3,12 +3,10 @@ package main
 import (
     "github.com/magiconair/properties"
     "github.com/gorilla/mux"
-    "github.com/newrelic/go-agent"
     "html/template"
     "net/http"
     "strings"
     "fmt"
-    "log"
     "os"
 )
 
@@ -39,34 +37,24 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    newRelicLicenseKey := os.Getenv("NEWRELIC_LICENSE_KEY")
-    newRelicApplicationName := os.Getenv("NEWRELIC_APP_NAME")
 
     port := os.Getenv("PORT")
     if port == "" {
         port = "8080"
     }
 
-    config := newrelic.NewConfig(newRelicApplicationName, newRelicLicenseKey)
-    app, err := newrelic.NewApplication(config)
-
-    if err != nil {
-        log.Fatal("Unable to create new relic application: ", err)
-        os.Exit(1)
-    }
-
     r := mux.NewRouter()
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/ytim", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/band", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/dawnsfeydd", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/rolau", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/oriel", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/perfformiadau", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/cysylltu", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/error", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/result", handler))
-    r.HandleFunc(newrelic.WrapHandleFunc(app,"/ping", handler))
+    r.HandleFunc("/", handler)
+    r.HandleFunc("/ytim", handler)
+    r.HandleFunc("/band", handler)
+    r.HandleFunc("/dawnsfeydd", handler)
+    r.HandleFunc("/rolau", handler)
+    r.HandleFunc("/oriel", handler)
+    r.HandleFunc("/perfformiadau", handler)
+    r.HandleFunc("/cysylltu", handler)
+    r.HandleFunc("/error", handler)
+    r.HandleFunc("/result", handler)
+    r.HandleFunc("/ping", handler)
     r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
     http.ListenAndServe(fmt.Sprintf(":%s",port), r)
 }
