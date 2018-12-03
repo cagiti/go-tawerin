@@ -1,9 +1,10 @@
-FROM golang:1.7
+FROM golang:1.11
 
-ADD . /go/src/github.com/cagiti/go-tawerin
+ADD . /go/src/go-tawerin
 
-RUN cd /go/src/github.com/cagiti/go-tawerin;make
-
-ENTRYPOINT cd /go/src/github.com/cagiti/go-tawerin/;./go-tawerin
+RUN cd /go/src/go-tawerin \
+       && make build
 
 EXPOSE 8080
+WORKDIR /go/src/go-tawerin
+ENTRYPOINT go run main.go app.go
