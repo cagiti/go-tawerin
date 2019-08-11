@@ -1,6 +1,6 @@
 language: go
 go:
- - 1.8
+ - 1.10
 
 before_install:
 - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
