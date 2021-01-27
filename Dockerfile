@@ -1,10 +1,26 @@
-FROM golang:1.11
+FROM golang:1.14 as builder
 
-ADD . /go/src/go-tawerin
+WORKDIR /usr/local/go/src/github.com/cagiti/go-tawerin
 
-RUN cd /go/src/go-tawerin \
-       && make build
+COPY go.mod .
+COPY go.sum .
 
-EXPOSE 8080
-WORKDIR /go/src/go-tawerin
-ENTRYPOINT go run main.go app.go
+ENV GO111MODULE=on
+
+RUN go mod download
+
+COPY web/ web
+COPY pkg/ pkg
+
+RUN env CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o go-tawerin-linux-amd64 web/tawerin/tawerin.go
+
+FROM busybox:glibc as production
+
+ENV XDG_DATA_HOME=/home/.local/share
+ENV PATH=$XDG_DATA_HOME/tawerin:$PATH
+
+COPY --from=builder /usr/local/go/src/github.com/cagiti/go-tawerin/go-tawerin-linux-amd64 $XDG_DATA_HOME/tawerin/go-tawerin
+COPY static/ $XDG_DATA_HOME/tawerin/static
+COPY templates/ $XDG_DATA_HOME/tawerin/templates
+
+CMD ["go-tawerin"]

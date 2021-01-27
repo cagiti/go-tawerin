@@ -1,12 +1,14 @@
-package main
+package app
 
 import (
 	"fmt"
+	"github.com/cagiti/go-tawerin/pkg/util"
 	"github.com/gorilla/mux"
 	"github.com/magiconair/properties"
 	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strings"
 )
 
@@ -27,9 +29,9 @@ func (a *App) Run(addr string) {
 func (a *App) getProperties(host string) map[string]string {
 	var p map[string]string
 	if strings.Contains(host, "wales") {
-		p = properties.MustLoadFile("static/wales.properties", properties.UTF8).Map()
+		p = properties.MustLoadFile(filepath.Join(util.StaticDir(), "wales.properties"), properties.UTF8).Map()
 	} else {
-		p = properties.MustLoadFile("static/cymru.properties", properties.UTF8).Map()
+		p = properties.MustLoadFile(filepath.Join(util.StaticDir(), "cymru.properties"), properties.UTF8).Map()
 	}
 	return p
 }
@@ -37,7 +39,7 @@ func (a *App) getProperties(host string) map[string]string {
 func (a *App) handler(w http.ResponseWriter, r *http.Request) {
 	m := a.getProperties(r.Host)
 	if r.URL.Path == "/" {
-		t, _ := template.ParseFiles("templates/index.tmpl")
+		t, _ := template.ParseFiles(filepath.Join(util.TemplatesDir(), "index.tmpl"))
 		err := t.Execute(w, m)
 		if err != nil {
 			log.Print("Unable to parse template: ", err)
@@ -47,7 +49,7 @@ func (a *App) handler(w http.ResponseWriter, r *http.Request) {
 	} else if r.URL.Path == "/ping" {
 		fmt.Fprintf(w, "OK")
 	} else {
-		t, _ := template.ParseFiles(fmt.Sprintf("templates/%s.tmpl", r.URL.Path))
+		t, _ := template.ParseFiles(filepath.Join(util.TemplatesDir(), fmt.Sprintf("%s.tmpl", r.URL.Path)))
 		err := t.Execute(w, m)
 		if err != nil {
 			log.Print("Unable to parse template: ", err)
@@ -69,5 +71,5 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/error", a.handler)
 	a.Router.HandleFunc("/result", a.handler)
 	a.Router.HandleFunc("/ping", a.handler)
-	a.Router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+	a.Router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(util.StaticDir()))))
 }

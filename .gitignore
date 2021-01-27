@@ -28,3 +28,4 @@ vendor/
 !/static/vendor/
 manifest.yml
 go-tawerin
+.idea
