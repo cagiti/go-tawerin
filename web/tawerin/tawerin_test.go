@@ -1,16 +1,17 @@
 package main
 
 import (
+	"github.com/cagiti/go-tawerin/pkg/app"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 )
 
-var a App
+var a = app.App{}
 
 func TestApp(t *testing.T) {
-	a = App{}
+	a = app.App{}
 	a.Initialize()
 
 	t.Run("homePageViaWeb", homePageViaWeb)
